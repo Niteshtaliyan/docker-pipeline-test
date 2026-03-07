@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-RUN apk add --no-cache curl=8.5.0-r0
+RUN apk add --no-cache curl
 
 WORKDIR /usr/src/app
 
