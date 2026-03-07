@@ -97,7 +97,7 @@ jobs:
         run: docker save ${{ matrix.service }}:test -o /tmp/${{ matrix.service }}-image.tar
 
       - name: Upload image artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docker-images
           path: /tmp/${{ matrix.service }}-image.tar
@@ -113,7 +113,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Download Docker images
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: docker-images
           path: /tmp/
@@ -152,7 +152,7 @@ jobs:
 
       - name: Upload test logs
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-logs
           path: test-logs.txt
@@ -171,7 +171,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Download Docker images
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: docker-images
           path: /tmp/
@@ -201,7 +201,7 @@ jobs:
           done
 
       - name: Upload SBOMs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: sbom-results
           path: sbom-*.json
