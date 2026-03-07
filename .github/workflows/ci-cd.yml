@@ -101,7 +101,7 @@ jobs:
       - name: Upload image artifact
         uses: actions/upload-artifact@v4
         with:
-          name: docker-images
+          name: docker-images-${{ matrix.service }}
           path: /tmp/${{ matrix.service }}-image.tar
           retention-days: 1
 
@@ -114,10 +114,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Download Docker images
+      - name: Download Docker images - api
         uses: actions/download-artifact@v4
         with:
-          name: docker-images
+          name: docker-images-api
+          path: /tmp/
+
+      - name: Download Docker images - web
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-images-web
+          path: /tmp/
+
+      - name: Download Docker images - tests
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-images-tests
           path: /tmp/
 
       - name: Load Docker images
@@ -172,10 +184,34 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Download Docker images
+      - name: Download Docker images - api
         uses: actions/download-artifact@v4
         with:
-          name: docker-images
+          name: docker-images-api
+          path: /tmp/
+
+      - name: Download Docker images - web
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-images-web
+          path: /tmp/
+
+      - name: Download Docker images - tests
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-images-tests
+          path: /tmp/
+
+      - name: Download Docker images - web
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-images-web
+          path: /tmp/
+
+      - name: Download Docker images - tests
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-images-tests
           path: /tmp/
 
       - name: Load Docker images
