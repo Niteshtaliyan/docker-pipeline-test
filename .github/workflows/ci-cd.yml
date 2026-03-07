@@ -231,10 +231,12 @@ jobs:
 
       - name: Generate SBOM (Software Bill of Materials)
         run: |
+          mkdir -p sbom-results
           for image in api web tests; do
             echo "Generating SBOM for $image:test"
             docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
-              aquasec/trivy image --format cyclonedx --output "sbom-${image}.json" \
+              -v $PWD/sbom-results:/sbom-results \
+              aquasec/trivy image --format cyclonedx --output "/sbom-results/sbom-${image}.json" \
               "${image}:test" || true
           done
 
@@ -242,7 +244,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sbom-results
-          path: sbom-*.json
+          path: sbom-results/
+          if-no-files-found: ignore
 
   # Stage 4: Publish to Registry
   publish:

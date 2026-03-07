@@ -38,9 +38,7 @@ services:
       - "6379"
 
   api:
-    build:
-      context: ./api
-      dockerfile: Dockerfile
+    image: api:test
     container_name: staging_api
     environment:
       - PORT=3000
@@ -69,9 +67,7 @@ services:
       - "3000:3000"
 
   web:
-    build:
-      context: ./web
-      dockerfile: Dockerfile
+    image: web:test
     container_name: staging_web
     environment:
       - API_URL=http://api:3000
@@ -91,9 +87,7 @@ services:
       - "8080:80"
 
   tests:
-    build:
-      context: ./tests
-      dockerfile: Dockerfile
+    image: tests:test
     container_name: staging_tests
     environment:
       - API_URL=http://api:3000
