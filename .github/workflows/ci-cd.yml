@@ -140,9 +140,9 @@ jobs:
 
       - name: Start services with Docker Compose
         run: |
-          docker-compose -f docker-compose.staging.yml up -d
+          docker compose -f docker-compose.staging.yml up -d
           sleep 10
-          docker-compose -f docker-compose.staging.yml ps
+          docker compose -f docker-compose.staging.yml ps
 
       - name: Wait for API to be healthy
         run: |
@@ -157,12 +157,12 @@ jobs:
           exit 1
 
       - name: Run tests
-        run: docker-compose -f docker-compose.staging.yml run --rm tests npm test
+        run: docker compose -f docker-compose.staging.yml run --rm tests npm test
 
       - name: Collect test results
         if: always()
         run: |
-          docker-compose -f docker-compose.staging.yml logs tests > test-logs.txt || true
+          docker compose -f docker-compose.staging.yml logs tests > test-logs.txt || true
 
       - name: Upload test logs
         if: always()
@@ -173,7 +173,7 @@ jobs:
 
       - name: Stop services
         if: always()
-        run: docker-compose -f docker-compose.staging.yml down -v
+        run: docker compose -f docker-compose.staging.yml down -v
 
   # Stage 3: Security & Quality
   security-quality:
